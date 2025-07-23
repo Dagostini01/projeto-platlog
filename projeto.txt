@@ -1,0 +1,76 @@
+Projeto PlatLog
+
+Sistema de controle de informação de carga
+ - Coleta de informação
+ - Gestão da informação
+ - Conexão com o PowerBI
+ - Relatórios
+ 
+ Premissas:
+  - Sistema precisa rodar offline
+  - Precisa ter um mecanismo de atualização da base online
+  - Precisa controlar as atualizações
+  - Coleta de informação pode ser baseada ou não em uma base prévia
+  - Preciso ter um mecanismo para carregar uma base de dados externa e integrar no banco com tratamento dos dados
+  - A coleta de dados, quando existir a NF ou Pallet, fazemos uma conferência (por exceção) dos produtos, ou seja, se eu não marcar avaria, colocar observação e tirar foto, está OK
+  - Preciso subir a foto da NFe ou do Pallet no final da conferência, e ter uma opção para marcar e justificar quando não tem a NF ou folha do Pallet
+  - Aplicação Android (para coleta)
+  - Aplicação Web (para gestão)
+  - Pensar em vários clientes e vários projetos (cadastro de cliente e cadastro de projeto, que dentro dele tem vários dias de operação)
+  - Permitir a alteração das informações que estavam previamente na base, porém, gerar indicador de alteração para registro
+  - Manter o nível de agrupamento das informações na NF, ou seja, os dados são relacionados a NF e não ao conteúdo delas
+  - Tipo de avarias na NF: Avaria de Produto, Avaria de Embalagem, Falta de Produto, Sobra de Produto, Inversão de Rota e Inversão de Produto (quando houver uma inversão de produto ou rota, registrar apenas 1 avaria, e não 2)
+  - Gravar o nome de quem conferiu a NF e Pallet
+  
+  Fluxo de Processo:
+  - Envio de base de Pallet, NFs e Rotas da semana
+  - Integrar as informações na aplicação de gestão
+  - Equipe vai até as docas e recebem as NFs a serem conferidas
+  - Equipe procura as cargas para conferência na área de despacho
+  - Equipe faz a conferência, NF a NF de um Pallet, e finalizando as NFs ele confere o Pallet
+  - Equipe finaliza a conferência da carga, marcando as avarias, caso houver
+  - Equipe, ao final da conferência das cargas, preenche o diário de bordo e gera um resumo do que foi conferido por rota, tipologia e loja
+  - Faz o fechamento da OS do dia
+  - Ao termino do turno, equipe faz a sincronização dos dados (Verificar a possibilidade de automatizar isso a medida que tem internet)
+  
+  Fluxo de Processo (Gerencial)
+  - Cadastro do Cliente
+  - Cadastro do Projeto
+  - Cadastro dos OS do Projeto (para o pessoal trabalhar)
+  
+	- <<Fluxo do App - Operacional>>
+  
+  - Verifica a consistências as informações da OS e faz o fechamento da mesma
+  - Verificação se todas as NFs listadas na base para sair no dia foram verificadas
+  - Cruzamento das NFs verificadas com a base do cliente
+  - Atualização dos indicadores
+  - Criar um acesso cliente para PESQUISA de informação de NFs conferidas com dados e fotos
+  
+  
+  
+  Fluxo de Processo (Operacional)
+  
+  O processo de conferência consiste em:
+   - Colaborador Loga no sistema
+   - Verifica se quem logou é um colaborador nosso ou auditor do cliente (Quando for auditor do cliente, precisa identificar as conferências como auditoria)
+   - Colaborador faz o registro da entrada (Só Colaborador)
+   - Pegar as NFs fisicamente (impresso) no galpão
+   - Localizar os pallets das NFs para conferência
+    - Conferir cada NF existente no Pallet contra a informação do sistema e da nota física, com evidência fotográfica
+	- Após a finalização da conferência de todas as NFs relacionadas ao pallet, eles fazem a conferência do Pallet
+	 - Conferência do pallet consistem em:
+	  - Verificar se todas as NFs presentes são do Pallet
+	  - Verificar se não há falta de NFs no Pallet
+	  - Faz a identificação e registro de:
+	   - Número do pallet (XX/XX)
+	   - Número da Rota
+	   - Tipologia dos Produtos
+	   - Se ele foi remontado (Só Colaborador)
+	   - Data de conferência
+   - Colaborador faz registro da saída para almoço (Só Colaborador)
+   - Colaborador faz registro  do retorno do almoço (Só Colaborador)
+   ... Repetição das etapas de conferência ...
+   - Colaborador faz o preenchimento do diário de bordo (Só o Coordenador)
+   - Colaborador faz registro de saída (Só Colaborador) 
+
+  Os registros de entrada e saída precisam ser validados com o coordenador (pensamos em criar uma chave para o dia e OS, que muda por hora e gera um QR-Code, que vai ser lido da tela do coordenador)
