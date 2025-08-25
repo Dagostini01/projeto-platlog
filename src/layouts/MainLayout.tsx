@@ -16,6 +16,7 @@ function MainLayout() {
         <nav className="flex flex-col space-y-3">
           <Link to="/perfil" className="hover:underline">Perfil</Link>
           <Link to="/dashboard" className="hover:underline">Dashboard</Link>
+          <Link to="/cadastro" className="hover:underline">Cadastro</Link>
           <button onClick={handleLogout} className="text-left hover:underline text-sm mt-6 text-blue-200">
             Sair
           </button>

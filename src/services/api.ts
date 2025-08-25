@@ -1,4 +1,4 @@
-export const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3000';
+export const API_BASE = "https://apidocker-bhc9f4hxb3hggrfz.brazilsouth-01.azurewebsites.net/";
 
 export async function get<T>(url: string) {
   const res = await fetch(`${API_BASE}${url}`);

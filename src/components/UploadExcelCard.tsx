@@ -10,7 +10,7 @@ type UploadResult = {
   [k: string]: any;
 };
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+const API_BASE = "https://apidocker-bhc9f4hxb3hggrfz.brazilsouth-01.azurewebsites.net/";
 
 export default function UploadExcelCard() {
   const [file, setFile] = useState<File | null>(null);
