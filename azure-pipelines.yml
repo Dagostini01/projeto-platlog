@@ -62,14 +62,14 @@ stages:
                 az webapp config container set \
                   --name "$APP_NAME" \
                   --resource-group "$RG" \
-                  --docker-custom-image-name "$IMAGE" \
-                  --docker-registry-server-url "https://index.docker.io/v1/"
+                  --container-image-name "$IMAGE" \
+                  --container-registry-url "https://index.docker.io"
 
-                echo "Ensuring WEBSITES_PORT=80"
+                echo "Ensuring WEBSITES_PORT matches your container (ex.: 8080)"
                 az webapp config appsettings set \
                   --name "$APP_NAME" \
                   --resource-group "$RG" \
-                  --settings WEBSITES_PORT=80
+                  --settings WEBSITES_PORT=8080
 
                 echo "Restarting Web App"
                 az webapp restart --name "$APP_NAME" --resource-group "$RG"
