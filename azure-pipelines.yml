@@ -14,7 +14,7 @@ variables:
   tag: '$(Build.BuildNumber)'
   # Azure
   azureServiceConnection: 'AzureRM-Connection'
-  resourceGroup: 'Datasite'
+  resourceGroup: 'DatasiteAPs'
   webAppName: 'webconferenciacarga-app'
   # Docker Hub service connection
   dockerServiceConnection: 'DockerHubConnection'
