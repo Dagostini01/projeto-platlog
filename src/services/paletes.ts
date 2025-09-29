@@ -1,4 +1,4 @@
-import { get, post, patch, del } from './api';
+import { get, post, patch, del, API_BASE } from './api';
 
 export interface Palete {
   id: number;
@@ -21,4 +21,12 @@ export function updatePalete(id: number, data: any) {
 
 export function deletePalete(id: number) {
   return del(`/paletes/${id}`);
+}
+
+export async function fetchPaleteFoto(id: number): Promise<string> {
+  const res = await fetch(`${API_BASE}/paletes/${id}/foto`);
+  if (!res.ok) throw new Error('Erro ao buscar foto');
+  
+  const blob = await res.blob();
+  return URL.createObjectURL(blob);
 }

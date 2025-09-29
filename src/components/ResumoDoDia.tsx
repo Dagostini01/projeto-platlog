@@ -10,11 +10,13 @@ import {
   fetchPaletes,
   deletePalete,
   updatePalete,
+  fetchPaleteFoto,
   type Palete,
 } from "../services/paletes";
 import EditModal from "./forms/EditModal";
 import NotaForm from "./forms/NotaForm";
 import PaleteForm from "./forms/PaleteForm";
+import FotoModal from "./FotoModal";
 
 function BadgeAvaria({ texto }: { texto: string }) {
   return (
@@ -38,6 +40,14 @@ export default function ResumoDoDia() {
   const [paleteEdit, setPaleteEdit] = useState<Palete | null>(null);
   const [patchNota, setPatchNota] = useState<Partial<Nota>>({});
   const [patchPalete, setPatchPalete] = useState<Partial<Palete>>({});
+
+  // Estados para o modal de foto
+  const [fotoModalOpen, setFotoModalOpen] = useState(false);
+  const [notaIdFoto, setNotaIdFoto] = useState<number | null>(null);
+  const [numeroNotaFoto, setNumeroNotaFoto] = useState<number | null>(null);
+  const [paleteIdFoto, setPaleteIdFoto] = useState<number | null>(null);
+  const [numeroPalletFoto, setNumeroPalletFoto] = useState<string | null>(null);
+  const [tipoFoto, setTipoFoto] = useState<"nota" | "palete" | null>(null);
 
   const carregarDados = async () => {
     try {
@@ -86,6 +96,29 @@ export default function ResumoDoDia() {
     setPaleteEdit(p);
     setPatchPalete({});
     setEditOpen(true);
+  };
+
+  const abrirFotoNota = (notaId: number, numeroNota: number) => {
+    setNotaIdFoto(notaId);
+    setNumeroNotaFoto(numeroNota);
+    setTipoFoto("nota");
+    setFotoModalOpen(true);
+  };
+
+  const abrirFotoPalete = (paleteId: number, numeroPallet: string) => {
+    setPaleteIdFoto(paleteId);
+    setNumeroPalletFoto(numeroPallet);
+    setTipoFoto("palete");
+    setFotoModalOpen(true);
+  };
+
+  const fecharFotoModal = () => {
+    setFotoModalOpen(false);
+    setNotaIdFoto(null);
+    setNumeroNotaFoto(null);
+    setPaleteIdFoto(null);
+    setNumeroPalletFoto(null);
+    setTipoFoto(null);
   };
 
   const salvarEdicao = async () => {
@@ -167,6 +200,12 @@ export default function ResumoDoDia() {
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <button
+                      onClick={() => abrirFotoNota(nota.id, nota.numeroNota)}
+                      className="text-green-600 hover:text-green-800 text-sm font-medium"
+                    >
+                      Foto
+                    </button>
+                    <button
                       onClick={() => abrirEditarNota(nota)}
                       className="text-blue-600 hover:text-blue-800 text-sm font-medium"
                     >
@@ -208,6 +247,12 @@ export default function ResumoDoDia() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      onClick={() => abrirFotoPalete(palete.id, palete.numeroPallet)}
+                      className="text-green-600 hover:text-green-800 text-sm font-medium"
+                    >
+                      Foto
+                    </button>
                     <button
                       onClick={() => abrirEditarPalete(palete)}
                       className="text-blue-600 hover:text-blue-800 text-sm font-medium"
@@ -255,6 +300,17 @@ export default function ResumoDoDia() {
           <PaleteForm value={paleteEdit} onChange={setPatchPalete} />
         )}
       </EditModal>
+
+      {/* MODAL DE FOTO */}
+      <FotoModal
+        notaId={notaIdFoto}
+        numeroNota={numeroNotaFoto}
+        paleteId={paleteIdFoto}
+        numeroPallet={numeroPalletFoto}
+        tipo={tipoFoto}
+        isOpen={!!notaIdFoto || !!paleteIdFoto}
+        onClose={fecharFotoModal}
+      />
     </div>
   );
 }
