@@ -15,7 +15,7 @@ variables:
   # Azure
   azureServiceConnection: 'AzureRM-Connection'
   resourceGroup: 'DatasiteAPs'
-  webAppName: 'webconferenciacarga-app'
+  webAppName: 'ConferenciaCarga'
   # Docker Hub service connection
   dockerServiceConnection: 'DockerHubConnection'
 
